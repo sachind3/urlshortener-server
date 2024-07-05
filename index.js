@@ -9,6 +9,7 @@ const authRoutes = require("./routes/authRoutes");
 const userRoutes = require("./routes/userRoutes");
 const urlRoutes = require("./routes/urlRoutes");
 const clickRoutes = require("./routes/clickRoutes");
+const { getClientUrl, getServerUrl } = require("./utils/helpers");
 
 dotenv.config();
 
@@ -18,9 +19,12 @@ app.use(morgan("combined")); // Use morgan middleware
 
 app.use(express.json());
 app.use(cookieParser());
+
+const baseClientUrl = getClientUrl();
+const baseServerUrl = getServerUrl();
 app.use(
   cors({
-    origin: process.env.CLIENT_URL, // Replace with the URL of your React app
+    origin: baseClientUrl, // Replace with the URL of your React app
     credentials: true,
   })
 );
